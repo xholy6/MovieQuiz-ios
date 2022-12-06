@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		584ECFD4293F590300A5A869 /* AlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584ECFD3293F590200A5A869 /* AlertPresenterProtocol.swift */; };
+		584ECFD6293F591700A5A869 /* AlertPresenterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584ECFD5293F591700A5A869 /* AlertPresenterDelegate.swift */; };
 		58A4DAB929363C3A00D46093 /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A4DAB829363C3A00D46093 /* MostPopularMovies.swift */; };
 		58A4DABB29363CE200D46093 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A4DABA29363CE200D46093 /* NetworkClient.swift */; };
 		58A4DABD29363CFA00D46093 /* MoviesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A4DABC29363CFA00D46093 /* MoviesLoader.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		584ECFD3293F590200A5A869 /* AlertPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterProtocol.swift; sourceTree = "<group>"; };
+		584ECFD5293F591700A5A869 /* AlertPresenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterDelegate.swift; sourceTree = "<group>"; };
 		58A4DAB829363C3A00D46093 /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
 		58A4DABA29363CE200D46093 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		58A4DABC29363CFA00D46093 /* MoviesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoader.swift; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 				58A9348E291A756400C32168 /* StatisticServiceImplementation.swift */,
 				58A4DABA29363CE200D46093 /* NetworkClient.swift */,
 				58A4DABC29363CFA00D46093 /* MoviesLoader.swift */,
+				584ECFD3293F590200A5A869 /* AlertPresenterProtocol.swift */,
+				584ECFD5293F591700A5A869 /* AlertPresenterDelegate.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -279,6 +285,8 @@
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
 				58A93481290E9EDB00C32168 /* QuizResultsViewModel.swift in Sources */,
 				58A9348F291A756400C32168 /* StatisticServiceImplementation.swift in Sources */,
+				584ECFD4293F590300A5A869 /* AlertPresenterProtocol.swift in Sources */,
+				584ECFD6293F591700A5A869 /* AlertPresenterDelegate.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

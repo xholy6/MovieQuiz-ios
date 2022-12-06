@@ -3,7 +3,7 @@ import UIKit
 
 struct AlertPresenter {
     
-    weak var viewController: UIViewController?
+    weak var vcDelegate: AlertPresenterDelegate?
     
     func showAlert(alertModel: AlertModel) {
         
@@ -11,10 +11,12 @@ struct AlertPresenter {
                                       message: alertModel.message,
                                       preferredStyle: .alert)
         
-        let action = UIAlertAction(title: alertModel.buttonText, style: .default, handler: alertModel.completion)
+        let action = UIAlertAction(title: alertModel.buttonText,
+                                   style: .default,
+                                   handler: alertModel.completion)
         alert.addAction(action)
         
-        viewController?.present(alert, animated: true, completion: nil)
+        vcDelegate?.didPresentAlert(alert: alert)
         
     }
 }
