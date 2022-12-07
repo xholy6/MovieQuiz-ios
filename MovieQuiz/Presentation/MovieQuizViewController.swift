@@ -55,14 +55,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         alertPresenter?.showAlert(alertModel: alertModel)
     }
     
-    func didPresentAlert(alert: UIAlertController?) {
-        guard let alert = alert else { return }
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         
         QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage() ,
@@ -148,13 +140,20 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     // MARK: - QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
-            return
-        }
+        guard let question = question else { return }
         currentQuestion = question
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
         }
     }
+    
+    // MARK: - AlertPresenterDelegate
+
+func didPresentAlert(alert: UIAlertController?) {
+    guard let alert = alert else { return }
+    DispatchQueue.main.async { [weak self] in
+        self?.present(alert, animated: true, completion: nil)
+    }
+}
 }
