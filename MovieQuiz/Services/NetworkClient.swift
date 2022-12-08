@@ -21,20 +21,9 @@ struct NetworkClient {
                 handler(.failure(NetworkError.codeError))
                 return
             }
-            do {
-                if let data = data {
-                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                    let errorMessage = json?["errorMessage"] as? String
-                    if  errorMessage != ""
-                    {
-                        handler(.failure(NetworkError.codeError))
-                        return
-                    }
-                    handler(.success(data))
-                }
-            } catch {
-                handler(.failure(error))
-            }
+            
+            guard let data = data else { return }
+                         handler(.success(data))
         }
         
         task.resume()

@@ -72,13 +72,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.showNextQuestionOrResults()
-            self?.noButton.isEnabled = true
-            self?.yesButton.isEnabled = true
         }
     }
     
     private func showNextQuestionOrResults() {
-        
+        currentQuestionIndex += 1
         if currentQuestionIndex == questionsAmount {
             statisticService.store(correct: correctAnswers, total: questionsAmount)
             let alertText = "Ваш результат: \(correctAnswers)/\(questionsAmount) \n" +
@@ -90,7 +88,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         } else {
             questionFactory?.requestNextQuestion()
         }
-        currentQuestionIndex += 1
     }
     
     private func updateStatusButton(isActive: Bool) {
@@ -98,26 +95,28 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         noButton.isEnabled = isActive
     }
     
-    private func drawLoader(isShown: Bool) {
-           activityIndicator.isHidden = !isShown
-           isShown ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
+    private func drawLoader() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true
+        drawLoader()
         questionFactory?.requestNextQuestion()
+        activityIndicator.stopAnimating()
     }
-
+    
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
     
     private func showNetworkError(message: String) {
-        drawLoader(isShown: true)
+        activityIndicator.stopAnimating()
         let alert = AlertModel(title: "Ошибка",
                                message: "",
                                buttonText: "Попробовать еще раз") { [weak self ] _ in
             guard let self = self else  { return }
+            self.drawLoader()
             self.showNextQuestionOrResults()
         }
         alertPresenter?.showAlert(alertModel: alert)
@@ -132,7 +131,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         imageView.layer.cornerRadius = 20
         questionFactory = QuestionFactory(delegate: self, moviesLoader: MoviesLoader())
         statisticService = StatisticServiceImplementation()
-        drawLoader(isShown: true)
+        activityIndicator.hidesWhenStopped = true
+        drawLoader()
         questionFactory?.loadData()
         alertPresenter = AlertPresenter()
         alertPresenter?.vcDelegate = self
@@ -145,15 +145,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
+            self?.updateStatusButton(isActive: true)
         }
     }
     
     // MARK: - AlertPresenterDelegate
-
-func didPresentAlert(alert: UIAlertController?) {
-    guard let alert = alert else { return }
-    DispatchQueue.main.async { [weak self] in
-        self?.present(alert, animated: true, completion: nil)
+    
+    func didPresentAlert(alert: UIAlertController?) {
+        guard let alert = alert else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true, completion: nil)
+        }
     }
-}
 }
