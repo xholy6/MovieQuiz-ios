@@ -7,10 +7,14 @@ private enum DecodeError: Error {
     case codeError
 }
 struct MoviesLoader: MoviesLoading {
-    private let networkClient = NetworkClient()
+    private let networkClient: NetworkRouting
+    
+    init(networkClient: NetworkRouting = NetworkClient()) {
+        self.networkClient = networkClient
+    }
     
     private var mostPopularMoviesUrl: URL {
-        guard let url = URL(string: "https://imdb-api.com/en/API/MostPopularMovies/k_ixqybnm5") else {
+        guard let url = URL(string: "https://imdb-api.com/en/API/MostPopularMovies/k_75gbtv3w") else {
             preconditionFailure("Unable to construct mostPopularMoviesUrl")
         }
         return url
