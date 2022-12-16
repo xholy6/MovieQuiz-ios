@@ -6,7 +6,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private var currentQuestionIndex: Int = 0
     private let questionsAmount: Int = 10
     
-    private var alertPresenter: AlertPresenter?
     private var currentQuestion: QuizQuestion?
     private var statisticService: StatisticService!
     private var questionFactory: QuestionFactoryProtocol?
